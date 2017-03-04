@@ -1,0 +1,60 @@
+@font-face{
+    font-family: "C64 Pro Mono Local";
+    src: url(./C64_Pro_Mono-STYLE.woff2) format("woff2"),
+         url(./C64_Pro_Mono-STYLE.woff) format("woff")
+}
+
+.centered {
+    display: block;
+    margin-left: auto; margin-right: auto;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: "C64 Pro Mono Local", "monospace";
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover	{
+    text-decoration: underline;
+}
+
+.header {
+    display: block;
+    text-align: center;
+    margin-left: auto; margin-right: auto;
+    font-size: 24pt;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 32px;
+}
+
+.footer {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 24px;
+}
+
+#screen {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+
+    max-width: calc((100vh - ((32px + 10px + 10px) + (24px + 5px + 5px))) / 1 * 2);
+    width: 100%;
+}
+
+#instructions {
+    text-align: center;
+}
+
+#instructions span {
+    padding-left: 50px;
+    padding-right: 50px;
+}
