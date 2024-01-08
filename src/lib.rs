@@ -1,4 +1,5 @@
 mod panic_hook;
+mod screen;
 
 use wasm_bindgen::prelude::*;
 
@@ -7,6 +8,8 @@ use chirp8_engine::cpu::CPU;
 use chirp8_engine::quirks::*;
 use chirp8_engine::peripherals::*;
 use chirp8_engine::font::*;
+
+use screen::*;
 
 #[cfg(feature = "wee_alloc")]
 #[global_allocator]
@@ -94,14 +97,7 @@ pub fn setup() -> Ctx {
 pub fn render_image(ctx: &Ctx, pixbuf: &mut [u32]) {
     let framebuf = &ctx.virt.framebuf;
 
-    for y in 0..SCREEN_HEIGHT as usize {
-        let mut row = framebuf[y];
-        for x in 0..SCREEN_WIDTH as usize {
-            let i = y * SCREEN_WIDTH as usize + x;
-            pixbuf[i] = if row & (1 << 63) != 0 { 0xff_ff_ff_ff } else { 0xff_00_00_00 };
-            row <<= 1;
-        }
-    };
+    render_framebuf(framebuf, pixbuf);
 }
 
 #[wasm_bindgen]

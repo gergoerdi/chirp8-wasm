@@ -1,7 +1,8 @@
 import * as wasm from "../pkg/chirp8_wasm.js";
 
-const WIDTH = 64;
-const HEIGHT = 32;
+const SCALE = 8;
+const WIDTH = 64 * SCALE;
+const HEIGHT = 32 * SCALE;
 const FPS = 60;
 
 const screen = document.getElementById("screen");
