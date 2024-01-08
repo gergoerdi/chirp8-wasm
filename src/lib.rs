@@ -4,6 +4,7 @@ use wasm_bindgen::prelude::*;
 
 use chirp8_engine::prelude::*;
 use chirp8_engine::cpu::CPU;
+use chirp8_engine::quirks::*;
 use chirp8_engine::peripherals::*;
 use chirp8_engine::font::*;
 
@@ -65,8 +66,15 @@ pub fn setup() -> Ctx {
     panic_hook::set_panic_hook();
 
     let bytes = include_bytes!("../hidden.ch8");
+    let quirks = Quirks {
+        shift_vy: false,
+        reset_vf: false,
+        increment_ptr: false,
+        video_wait: true,
+        clip_sprites: true,
+    };
 
-    let mut cpu = CPU::new(Default::default());
+    let mut cpu = CPU::new(quirks);
     let mut virt = WasmPeripherals::new();
 
     for (addr, b) in FONT_HEX.iter().enumerate() {
