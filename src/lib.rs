@@ -1,5 +1,4 @@
 mod panic_hook;
-mod screen;
 
 use wasm_bindgen::prelude::*;
 
@@ -8,14 +7,11 @@ use chirp8_engine::cpu::CPU;
 use chirp8_engine::quirks::*;
 use chirp8_engine::peripherals::*;
 use chirp8_engine::font::*;
-
-use screen::*;
+use chirp8_engine::graphics::lcd::*;
 
 #[cfg(feature = "wee_alloc")]
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
-
-pub type FrameBuf = [ScreenRow; SCREEN_HEIGHT as usize];
 
 struct WasmPeripherals {
     framebuf: FrameBuf,
@@ -97,7 +93,7 @@ pub fn setup() -> Ctx {
 pub fn render_image(ctx: &Ctx, pixbuf: &mut [u32]) {
     let framebuf = &ctx.virt.framebuf;
 
-    render_framebuf(framebuf, pixbuf);
+    draw_lcd(framebuf, pixbuf, (8, 8), (0, 0));
 }
 
 #[wasm_bindgen]
