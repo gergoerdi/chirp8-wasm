@@ -42,7 +42,7 @@ impl Peripherals for WasmPeripherals {
         self.keys
     }
 
-    fn set_sound(&mut self, val: Byte) {
+    fn set_sound(&mut self, _val: Byte) {
     }
 
     fn read_ram(&self, addr: Addr) -> Byte {
@@ -73,7 +73,7 @@ pub fn setup() -> Ctx {
         clip_sprites: true,
     };
 
-    let mut cpu = CPU::new(quirks);
+    let cpu = CPU::new(quirks);
     let mut virt = WasmPeripherals::new();
 
     for (addr, b) in FONT_HEX.iter().enumerate() {
